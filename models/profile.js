@@ -1,10 +1,21 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
+import { v4 as uuidv4 } from 'uuid'
 
 const Schema = mongoose.Schema
 
 const profileSchema = new Schema({
   name: String,
-  photo: String
+  avatar: String,
+  emotionPosts: {type: Schema.Types.ObjectId, ref: 'EmotionPost'},
+  friendRequests: [{type: String}],
+  friends: {type: Schema.Types.ObjectId, ref: 'Profile'},
+  friendCode: {
+    type: String,
+    default: function() {
+      return uuidv4().slice(0,8)
+    }
+  },
+  messages: {type: Schema.Types.ObjectId, ref: 'DirectMessage'}
 },{
   timestamps: true,
 })
