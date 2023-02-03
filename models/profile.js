@@ -12,7 +12,7 @@ const profileSchema = new Schema({
   friendCode: {
     type: String,
     default: function() {
-      return uuidv4().slice(0,8)
+      return uuidv4()
     }
   },
   messages: {type: Schema.Types.ObjectId, ref: 'DirectMessage'}
