@@ -23,9 +23,16 @@ const show = async (req, res) => {
   }
 }
 
+
 const feed = async (req, res) => {
   try {
-
+    const currentUser = await Profile.findById(req.params.userId)
+    const emotionPosts = await EmotionPost.find({})
+    .populate('author')
+    console.log(currentUser)
+    console.log(emotionPosts)
+    const friendPosts = emotionPosts.filter(post => currentUser.friends.includes(post.author._id))
+    res.status(200).json(friendPosts)
   } catch (error) {
     res.status(500).json(error)
   }

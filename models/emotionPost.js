@@ -44,7 +44,7 @@ const emotionPostSchema = new Schema({
   author: {type: Types.ObjectId, ref: 'Profile'},
   comments: [commentSchema],
   reactions: [reactionSchema],
-  public: {type: Boolean, required: true}
+  public: {type: Boolean, required: true, default: true}
 },{
   timestamps: true,
 })
