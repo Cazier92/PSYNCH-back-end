@@ -8,7 +8,7 @@ const commentSchema = new Schema({
 })
 
 const reactionSchema = new Schema({
-  reactions: {type: String, 
+  reaction: {type: String, 
     required: true,
     enum: [
       'Like', 'Celebrate', 'Support', 'Funny', 'Love', 'Curious'

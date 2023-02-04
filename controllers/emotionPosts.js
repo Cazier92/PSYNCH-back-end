@@ -74,7 +74,17 @@ const createComment = async (req, res) => {
 
 const addReaction = async (req, res) => {
   try {
+    req.body.author = req.user.profile
+    const emotionPost = await EmotionPost.findById(req.params.id)
+    emotionPost.reactions.push(req.body)
+    await emotionPost.save()
 
+    const newReaction = emotionPost.reactions[emotionPost.reactions.length -1]
+
+    const profile = await Profile.findById(req.user.profile)
+    newReaction.author = profile
+
+    res.status(201).json(newReaction)
   } catch (error) {
     res.status(500).json(error)
   }
