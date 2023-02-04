@@ -13,7 +13,7 @@ router.get('/:id', emotionPostsCtrl.show)
 router.use(decodeUserFromToken)
 
 // renders all the posts from a users friends:
-router.get('/feed', checkAuth, emotionPostsCtrl.feed)
+router.get('/:userId/feed', checkAuth, emotionPostsCtrl.feed)
 
 router.post('/', checkAuth, emotionPostsCtrl.create)
 router.post('/:id/comments', checkAuth, emotionPostsCtrl.createComment)
