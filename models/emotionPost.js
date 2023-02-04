@@ -43,7 +43,8 @@ const emotionPostSchema = new Schema({
   content: {type: String, maxLength: 65},
   author: {type: Types.ObjectId, ref: 'Profile'},
   comments: [commentSchema],
-  reactions: [reactionSchema]
+  reactions: [reactionSchema],
+  public: {type: Boolean, required: true}
 },{
   timestamps: true,
 })
