@@ -177,7 +177,15 @@ const deleteComment = async (req, res) => {
 
 const deleteReaction = async (req, res) => {
   try {
-
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    const reactionDoc = post.reactions.id(req.params.reactionId)
+    if (reactionDoc.author.equals(req.user.profile)) {
+      post.reactions.remove({_id: req.params.reactionId})
+      await post.save()
+      res.status(200).json(reactionDoc)
+    } else {
+      res.status(401).json('Not Authorized: User does not match reactionDoc.author')
+    }
   } catch (error) {
     res.status(500).json(error)
   }
