@@ -107,6 +107,8 @@ const updateComment = async (req, res) => {
       await post.save()
 
       res.status(201).json(commentDoc)
+    } else {
+      res.status(401).json('Not Authorized: User does not match commentDoc.author')
     }
   } catch (error) {
     res.status(500).json(error)
@@ -140,7 +142,15 @@ const deleteEmotionPost = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   try {
-
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    const commentDoc = post.comments.id(req.params.commentId)
+    if (commentDoc.author.equals(req.user.profile) || post.author.equals(req.user.profile)) {
+      post.comments.remove({ _id: req.params.commentId})
+      await post.save()
+      res.status(200).json(commentDoc)
+    } else {
+      res.status(401).json('Not Authorized: User does not match emotionPost.author or commentDoc.author')
+    }
   } catch (error) {
     res.status(500).json(error)
   }

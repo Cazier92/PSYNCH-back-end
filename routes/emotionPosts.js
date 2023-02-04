@@ -29,7 +29,7 @@ router.put('/:id/reactions', checkAuth, emotionPostsCtrl.updateReaction)
 // Only for the user that posted emotion:
 router.delete('/:id', checkAuth, emotionPostsCtrl.delete)
 // Both the user that posted the emotion, and the user that posted the comment:
-router.delete('/id/comments', checkAuth, emotionPostsCtrl.deleteComment)
+router.delete('/:emotionPostId/comments/:commentId', checkAuth, emotionPostsCtrl.deleteComment)
 // Only for the user that left the reaction:
 router.delete('/:id/reactions', checkAuth, emotionPostsCtrl.deleteReaction)
 
