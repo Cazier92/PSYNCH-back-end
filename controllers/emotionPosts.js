@@ -1,16 +1,34 @@
 import { Profile } from "../models/profile.js";
 import { EmotionPost } from "../models/emotionPost.js";
 
-function index(req, res) {
-
+const index = async (req, res) => {
+  try {
+    const emotionPosts = await EmotionPost.find({})
+    .populate('author')
+    .sort({createdAt: 'desc'})
+    res.status(200).json(emotionPosts.filter(post => post.public === true))
+  } catch(error) {
+    res.status(500).json(error)
+  }
 }
 
-function show(req, res) {
-
+const show = async (req, res) => {
+  try {
+    const emotionPost = await EmotionPost.findById(req.params.id)
+    .populate('author')
+    .populate('comments.author')
+    res.status(200).json(emotionPost)
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function feed(req, res) {
+const feed = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const create = async (req, res) => {
@@ -30,36 +48,68 @@ const create = async (req, res) => {
   }
 }
 
-function createComment(req, res) {
+const createComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function addReaction(req, res) {
+const addReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function update(req, res) {
+const update = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function updateComment(req, res) {
+const updateComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function updateReaction(req, res) {
+const updateReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function deleteEmotionPost(req, res) {
+const deleteEmotionPost = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function deleteComment(req, res) {
+const deleteComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
-function deleteReaction(req, res) {
+const deleteReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 
