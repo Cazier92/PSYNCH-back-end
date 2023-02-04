@@ -13,8 +13,21 @@ function feed(req, res) {
 
 }
 
-function create(req, res) {
-
+const create = async (req, res) => {
+  try {
+    req.body.author = req.user.profile
+    const emotionPost = await EmotionPost.create(req.body)
+    const profile = await Profile.findByIdAndUpdate(
+      req.user.profile,
+      {$push: {emotionPosts: emotionPost}},
+      {new: true}
+    )
+    emotionPost.author = profile
+    res.status(201).json(emotionPost)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
 }
 
 function createComment(req, res) {
