@@ -22,7 +22,7 @@ router.post('/:id/reactions', checkAuth, emotionPostsCtrl.addReaction)
 // Only for user that posted emotion:
 router.put('/:id', checkAuth, emotionPostsCtrl.update)
 //Only for user that posted comment:
-router.put('/:id/comments', checkAuth, emotionPostsCtrl.updateComment)
+router.put('/:emotionPostId/comments/:commentId', checkAuth, emotionPostsCtrl.updateComment)
 //Only for user that posted reaction:
 router.put('/:id/reactions', checkAuth, emotionPostsCtrl.updateReaction)
 

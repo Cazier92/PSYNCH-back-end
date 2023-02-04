@@ -23,7 +23,6 @@ const show = async (req, res) => {
   }
 }
 
-
 const feed = async (req, res) => {
   try {
     const currentUser = await Profile.findById(req.params.userId)
@@ -57,7 +56,17 @@ const create = async (req, res) => {
 
 const createComment = async (req, res) => {
   try {
+    req.body.author = req.user.profile
+    const emotionPost = await EmotionPost.findById(req.params.id)
+    emotionPost.comments.push(req.body)
+    await emotionPost.save()
 
+    const newComment = emotionPost.comments[emotionPost.comments.length -1]
+
+    const profile = await Profile.findById(req.user.profile)
+    newComment.author = profile
+
+    res.status(201).json(newComment)
   } catch (error) {
     res.status(500).json(error)
   }
@@ -91,7 +100,14 @@ const update = async (req, res) => {
 
 const updateComment = async (req, res) => {
   try {
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    const commentDoc = post.comments.id(req.params.commentId)
+    if (commentDoc.author.equals(req.user.profile)) {
+      commentDoc.set(req.body)
+      await post.save()
 
+      res.status(201).json(commentDoc)
+    }
   } catch (error) {
     res.status(500).json(error)
   }
