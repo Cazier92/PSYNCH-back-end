@@ -127,7 +127,16 @@ const updateComment = async (req, res) => {
 
 const updateReaction = async (req, res) => {
   try {
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    const reactionDoc = post.reactions.id(req.params.reactionId)
+    if (reactionDoc.author.equals(req.user.profile)) {
+      reactionDoc.set(req.body)
+      await post.save()
 
+      res.status(200).json(reactionDoc)
+    } else {
+      res.status(401).json('Not Authorized: User does not match reactionDoc.author')
+    }
   } catch (error) {
     res.status(500).json(error)
   }
