@@ -73,7 +73,17 @@ const addReaction = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-
+    const post = await EmotionPost.findById(req.params.id)
+    if (post.author.equals(req.user.profile)) {
+      const emotionPost = await EmotionPost.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true}
+      ).populate('author')
+      res.status(200).json(emotionPost)
+    } else {
+      res.status(401).json('Not Authorized: User does not match emotionPost.author')
+    }
   } catch (error) {
     res.status(500).json(error)
   }
@@ -97,7 +107,16 @@ const updateReaction = async (req, res) => {
 
 const deleteEmotionPost = async (req, res) => {
   try {
-
+    const post = await EmotionPost.findById(req.params.id)
+    if (post.author.equals(req.user.profile)) {
+      const emotionPost = await EmotionPost.findByIdAndDelete(req.params.id)
+      const profile = await Profile.findById(req.user.profile)
+      profile.emotionPosts.remove({_id: req.params.id})
+      await profile.save()
+      res.status(200).json(emotionPost)
+    } else {
+      res.status(401).json('Not Authorized: User does not match emotionPost.author')
+    }
   } catch (error) {
     res.status(500).json(error)
   }
