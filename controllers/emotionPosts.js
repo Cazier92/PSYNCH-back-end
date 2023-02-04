@@ -1,15 +1,22 @@
 import { Profile } from "../models/profile.js";
 import { EmotionPost } from "../models/emotionPost.js";
 
-function index(req, res) {
+const index = async (req, res) => {
+  try {
+    const emotionPosts = await EmotionPost.find({})
+    .populate('author')
+    .sort({createdAt: 'desc'})
+    res.status(200).json(emotionPosts.filter(post => post.public === true))
+  } catch(error) {
+    res.status(500).json(error)
+  }
+}
+
+const show = async (req, res) => {
 
 }
 
-function show(req, res) {
-
-}
-
-function feed(req, res) {
+const feed = async (req, res) => {
 
 }
 
@@ -30,35 +37,35 @@ const create = async (req, res) => {
   }
 }
 
-function createComment(req, res) {
+const createComment = async (req, res) => {
 
 }
 
-function addReaction(req, res) {
+const addReaction = async (req, res) => {
 
 }
 
-function update(req, res) {
+const update = async (req, res) => {
 
 }
 
-function updateComment(req, res) {
+const updateComment = async (req, res) => {
 
 }
 
-function updateReaction(req, res) {
+const updateReaction = async (req, res) => {
 
 }
 
-function deleteEmotionPost(req, res) {
+const deleteEmotionPost = async (req, res) => {
 
 }
 
-function deleteComment(req, res) {
+const deleteComment = async (req, res) => {
 
 }
 
-function deleteReaction(req, res) {
+const deleteReaction = async (req, res) => {
 
 }
 
