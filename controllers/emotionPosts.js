@@ -13,11 +13,22 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
-
+  try {
+    const emotionPost = await EmotionPost.findById(req.params.id)
+    .populate('author')
+    .populate('comments.author')
+    res.status(200).json(emotionPost)
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const feed = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const create = async (req, res) => {
@@ -38,35 +49,67 @@ const create = async (req, res) => {
 }
 
 const createComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const addReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const update = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const updateComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const updateReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const deleteEmotionPost = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const deleteComment = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 const deleteReaction = async (req, res) => {
+  try {
 
+  } catch (error) {
+    res.status(500).json(error)
+  }
 }
 
 
