@@ -47,7 +47,15 @@ const friendRequests = async (req, res) => {
 
 const sendFriendRequest = async (req, res) => {
   try {
-
+    const friendProfile = await Profile.findById(req.params.id)
+    const userProfile = await Profile.findById(req.user.profile)
+    if (friendProfile.equals(userProfile)) {
+      res.status(401).json('Cannot send friend request to self')
+    } else {
+      friendProfile.friendRequests.push(userProfile)
+      await friendProfile.save()
+      res.status(200).json(friendProfile)
+    }
   } catch (error) {
     res.status(500).json(error)
   }
