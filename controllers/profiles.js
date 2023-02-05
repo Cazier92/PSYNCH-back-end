@@ -51,6 +51,8 @@ const sendFriendRequest = async (req, res) => {
     const userProfile = await Profile.findById(req.user.profile)
     if (friendProfile.equals(userProfile)) {
       res.status(401).json('Cannot send friend request to self')
+    } else if (friendProfile.friendRequests.includes(userProfile._id)) {
+      res.status(401).json('Cannot send multiple requests')
     } else {
       friendProfile.friendRequests.push(userProfile)
       await friendProfile.save()
@@ -81,7 +83,10 @@ const acceptRequest = async (req, res) => {
 
 const denyRequest = async (req, res) => {
   try {
-
+    const userProfile = await Profile.findById(req.user.profile)
+    userProfile.friendRequests.remove({_id: req.params.id})
+    await userProfile.save()
+    res.status(200).json(userProfile)
   } catch (error) {
     res.status(500).json(error)
   }
