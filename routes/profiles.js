@@ -17,7 +17,7 @@ router.get('/:id/requests', checkAuth, profilesCtrl.friendRequests)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
 router.patch('/:id/sendFriendRequest', checkAuth, profilesCtrl.sendFriendRequest)
-router.patch('/:userId/profile/:friendId', checkAuth, profilesCtrl.acceptRequest)
+router.patch('/:id/acceptRequest', checkAuth, profilesCtrl.acceptRequest)
 router.patch('/:userId/profile/:notFriendId/denyRequest', checkAuth, profilesCtrl.denyRequest)
 
 export { router }

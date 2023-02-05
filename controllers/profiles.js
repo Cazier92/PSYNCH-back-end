@@ -63,7 +63,17 @@ const sendFriendRequest = async (req, res) => {
 
 const acceptRequest = async (req, res) => {
   try {
-
+    const userProfile = await Profile.findByIdAndUpdate(
+      req.user.profile,
+      {$push: {friends: req.params.id}},
+      {new: true})
+    const friendProfile = await Profile.findByIdAndUpdate(
+      req.params.id,
+      {$push: {friends: req.user.profile}},
+      {new: true})
+    userProfile.friendRequests.remove({_id: req.params.id})
+    await userProfile.save()
+    res.status(200).json(userProfile)
   } catch (error) {
     res.status(500).json(error)
   }
