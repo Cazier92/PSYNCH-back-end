@@ -29,4 +29,54 @@ function addPhoto(req, res) {
   })
 }
 
-export { index, addPhoto }
+const friendsIdx = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const friendRequests = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const sendFriendRequest = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const acceptRequest = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const denyRequest = async (req, res) => {
+  try {
+
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+
+
+export { 
+  index, 
+  addPhoto,
+  friendsIdx,
+  friendRequests,
+  sendFriendRequest,
+  acceptRequest,
+  denyRequest,
+}
