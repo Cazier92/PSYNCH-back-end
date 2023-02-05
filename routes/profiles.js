@@ -11,7 +11,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 
 router.get('/', checkAuth, profilesCtrl.index)
-router.get('/:id/friends', checkAuth, profilesCtrl.friendsIdx)
+router.get('/friends', checkAuth, profilesCtrl.friendsIdx)
 router.get('/:id/requests', checkAuth, profilesCtrl.friendRequests)
 
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)

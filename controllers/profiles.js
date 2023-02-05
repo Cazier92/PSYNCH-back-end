@@ -31,7 +31,10 @@ function addPhoto(req, res) {
 
 const friendsIdx = async (req, res) => {
   try {
-
+    const userProfile = await Profile.findById(req.user.profile)
+    .populate('friends')
+    const friends = userProfile.friends
+    res.status(200).json(friends)
   } catch (error) {
     res.status(500).json(error)
   }
