@@ -13,6 +13,7 @@ router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.index)
 router.get('/friends', checkAuth, profilesCtrl.friendsIdx)
 router.get('/requests', checkAuth, profilesCtrl.friendRequests)
+router.get('/:id', checkAuth, profilesCtrl.show)
 
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
