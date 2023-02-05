@@ -42,7 +42,10 @@ const friendsIdx = async (req, res) => {
 
 const friendRequests = async (req, res) => {
   try {
-
+    const userProfile = await Profile.findById(req.user.profile)
+    .populate('friendRequests')
+    const friendRequests = userProfile.friendRequests
+    res.status(200).json(friendRequests)
   } catch (error) {
     res.status(500).json(error)
   }
