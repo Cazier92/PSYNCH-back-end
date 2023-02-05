@@ -19,16 +19,21 @@ const show = async (req, res) => {
     .populate('comments.author')
     res.status(200).json(emotionPost)
   } catch (error) {
+    console.log(error, 'Show Controller Error')
     res.status(500).json(error)
   }
 }
 
 const feed = async (req, res) => {
   try {
-    const currentUser = await Profile.findById(req.params.userId)
+    // const currentUser = await Profile.findById(req.params.userId)
+    const profile = await Profile.findById(req.user.profile)
+    console.log('profile')
     const emotionPosts = await EmotionPost.find({})
     .populate('author')
-    const friendPosts = emotionPosts.filter(post => currentUser.friends.includes(post.author._id))
+    // console.log(currentUser)
+    // console.log(emotionPosts)
+    const friendPosts = emotionPosts.filter(post => profile.friends.includes(post.author._id))
     res.status(200).json(friendPosts)
   } catch (error) {
     res.status(500).json(error)
