@@ -31,6 +31,7 @@ const feed = async (req, res) => {
     console.log('profile')
     const emotionPosts = await EmotionPost.find({})
     .populate('author')
+    .sort({createdAt: 'desc'})
     // console.log(currentUser)
     // console.log(emotionPosts)
     const friendPosts = emotionPosts.filter(post => profile.friends.includes(post.author._id))
