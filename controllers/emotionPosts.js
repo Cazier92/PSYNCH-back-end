@@ -47,14 +47,17 @@ const create = async (req, res) => {
     const emotionPost = await EmotionPost.create(req.body)
     const profile = await Profile.findByIdAndUpdate(
       req.user.profile,
-      {$push: {emotionPosts: emotionPost}},
+      {currentStatus: req.body.emotion,
+      $push: {emotionPosts: emotionPost}},
       {new: true}
     )
     emotionPost.author = profile
+    
     res.status(201).json(emotionPost)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
+    console.log(typeof req.body.emotion)
   }
 }
 
