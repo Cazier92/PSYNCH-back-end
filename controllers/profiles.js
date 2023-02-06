@@ -103,6 +103,7 @@ const show = async (req, res) => {
     const profile = await Profile.findById(req.params.id)
     .populate('emotionPosts')
     .populate('friends')
+    .populate('friendRequests')
     res.status(200).json(profile)
   } catch (error) {
     res.status(500).json(error)
