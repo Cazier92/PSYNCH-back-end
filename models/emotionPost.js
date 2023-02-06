@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
   content: {type: String, required: true, maxLength: 65},
-  author: {type: Types.ObjectId, ref: 'Profile'}
+  author: {type: Schema.Types.ObjectId, ref: 'Profile'}
 })
 
 const reactionSchema = new Schema({
@@ -14,7 +14,7 @@ const reactionSchema = new Schema({
       'Like', 'Celebrate', 'Support', 'Funny', 'Love', 'Curious'
     ]
   },
-  author: {type: Types.ObjectId, ref: 'Profile'}
+  author: {type: Schema.Types.ObjectId, ref: 'Profile'}
 }, {
   timestamps: true,
 })
@@ -41,7 +41,7 @@ const emotionPostSchema = new Schema({
     ]
   },
   content: {type: String, maxLength: 65},
-  author: {type: Types.ObjectId, ref: 'Profile'},
+  author: {type: Schema.Types.ObjectId, ref: 'Profile'},
   comments: [commentSchema],
   reactions: [reactionSchema],
   public: {type: Boolean, required: true, default: true}
