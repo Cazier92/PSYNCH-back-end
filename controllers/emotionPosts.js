@@ -82,19 +82,22 @@ const createComment = async (req, res) => {
 
 const addReaction = async (req, res) => {
   try {
-    req.body.author = req.user.profile;
-    const emotionPost = await EmotionPost.findById(req.params.id);
-    emotionPost.reactions.push(req.body);
-    await emotionPost.save();
+    req.body.author = req.user.profile
+    const emotionPost = await EmotionPost.findById(req.params.id)
+    .populate('author')
+    emotionPost.reactions.push(req.body)
+    await emotionPost.save()
 
     const newReaction = emotionPost.reactions[emotionPost.reactions.length - 1];
 
-    const profile = await Profile.findById(req.user.profile);
-    newReaction.author = profile;
+    const profile = await Profile.findById(req.user.profile)
+    
+    // newReaction.author = profile
 
-    res.status(201).json(newReaction);
+    res.status(201).json(emotionPost)
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error)
+    console.log(error)
   }
 };
 
@@ -139,20 +142,21 @@ const updateComment = async (req, res) => {
 
 const updateReaction = async (req, res) => {
   try {
-    const post = await EmotionPost.findById(req.params.emotionPostId);
-    const reactionDoc = post.reactions.id(req.params.reactionId);
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    .populate('author')
+    const reactionDoc = post.reactions.id(req.params.reactionId)
     if (reactionDoc.author.equals(req.user.profile)) {
-      reactionDoc.set(req.body);
-      await post.save();
-
-      res.status(200).json(reactionDoc);
+      reactionDoc.set(req.body)
+      await post.save()
+      res.status(200).json(post)
     } else {
       res
         .status(401)
         .json("Not Authorized: User does not match reactionDoc.author");
     }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error)
+    console.log(error)
   }
 };
 
@@ -200,21 +204,26 @@ const deleteComment = async (req, res) => {
 
 const deleteReaction = async (req, res) => {
   try {
-    const post = await EmotionPost.findById(req.params.emotionPostId);
-    const reactionDoc = post.reactions.id(req.params.reactionId);
+    const post = await EmotionPost.findById(req.params.emotionPostId)
+    .populate('author')
+    const reactionDoc = post.reactions.id(req.params.reactionId)
     if (reactionDoc.author.equals(req.user.profile)) {
-      post.reactions.remove({ _id: req.params.reactionId });
-      await post.save();
-      res.status(200).json(reactionDoc);
+      post.reactions.remove({_id: req.params.reactionId})
+      await post.save()
+      res.status(200).json(post)
     } else {
       res
         .status(401)
         .json("Not Authorized: User does not match reactionDoc.author");
     }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error)
+    console.log(error)
   }
-};
+}
+
+
+
 
 export {
   index,
