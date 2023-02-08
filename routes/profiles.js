@@ -15,6 +15,7 @@ router.get('/friends', checkAuth, profilesCtrl.friendsIdx)
 router.get('/requests', checkAuth, profilesCtrl.friendRequests)
 router.get('/:id', checkAuth, profilesCtrl.show)
 
+router.put('/edit', checkAuth, profilesCtrl.updateProfile)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
 router.patch('/:id/sendFriendRequest', checkAuth, profilesCtrl.sendFriendRequest)
