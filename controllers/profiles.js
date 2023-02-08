@@ -1,5 +1,6 @@
 import { Profile } from '../models/profile.js'
 import { v2 as cloudinary } from 'cloudinary'
+import { EmotionPost } from '../models/emotionPost.js'
 
 function index(req, res) {
   Profile.find({})
@@ -102,6 +103,7 @@ const show = async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id)
     .populate('emotionPosts')
+    // .populate('author')
     .populate('friends')
     .populate('friendRequests')
     res.status(200).json(profile)
@@ -109,15 +111,6 @@ const show = async (req, res) => {
     res.status(500).json(error)
   }
 }
-
-// const editProfile = async (req, res) => {
-//   try {
-//     const profile = await Profile.findById(req.user.profile)
-
-//   } catch (error) {
-//     res.status(500).json(error)
-//   }
-// }
 
 const updateProfile = async (req, res) => {
   try {

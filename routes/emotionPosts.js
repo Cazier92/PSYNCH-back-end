@@ -8,8 +8,9 @@ const router = Router()
 
 router.get('/', emotionPostsCtrl.index)
 router.get('/feed', decodeUserFromToken, checkAuth, emotionPostsCtrl.feed)
-
+router.get('/all', decodeUserFromToken, checkAuth, emotionPostsCtrl.all)
 router.get('/:id', emotionPostsCtrl.show)
+
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
