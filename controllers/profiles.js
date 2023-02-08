@@ -110,6 +110,28 @@ const show = async (req, res) => {
   }
 }
 
+// const editProfile = async (req, res) => {
+//   try {
+//     const profile = await Profile.findById(req.user.profile)
+
+//   } catch (error) {
+//     res.status(500).json(error)
+//   }
+// }
+
+const updateProfile = async (req, res) => {
+  try {
+    const profile = await Profile.findByIdAndUpdate(
+      req.user.id,
+      req.body,
+      {new: true}
+    )
+      res.status(201).json(profile)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 
 
 export { 
@@ -121,4 +143,5 @@ export {
   acceptRequest,
   denyRequest,
   show,
+  updateProfile,
 }
