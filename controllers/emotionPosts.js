@@ -43,6 +43,19 @@ const feed = async (req, res) => {
   }
 };
 
+const all = async (req, res) => {
+  try {
+    const emotionPosts = await EmotionPost.find({})
+    .populate('author')
+    .sort({createdAt: 'desc'})
+    
+    res.status(200).json(emotionPosts)
+  } catch(error) {
+    res.status(500).json(error)
+  }
+}
+
+
 const create = async (req, res) => {
   try {
     req.body.author = req.user.profile;
@@ -229,6 +242,7 @@ export {
   index,
   show,
   feed,
+  all,
   create,
   createComment,
   addReaction,
