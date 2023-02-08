@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const profileSchema = new Schema({
   name: String,
-  avatar: String,
+  photo: String,
   emotionPosts: [{type: Schema.Types.ObjectId, ref: 'EmotionPost'}],
   friendRequests: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   friends: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
