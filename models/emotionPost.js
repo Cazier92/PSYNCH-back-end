@@ -23,19 +23,19 @@ const emotionPostSchema = new Schema({
   emotion: {type: String, 
     required: true,
     enum: [
-      // Bad - Let's call this 'Down' to avoid stigmatizing (open to other suggestions):
+      // Bad - Let's call this 'Down' to avoid stigmatizing (open to other suggestions): (indigo/violet)
       'Bored', 'Stressed', 'Tired',
-      // Fearful:
+      // Fearful: (magenta/pink)
       'Anxious', 'Rejected', 'Scared',
-      // Angry:
+      // Angry: (red)
       'Mad', 'Jealous', 'Betrayed',
-      // Disgusted:
+      // Disgusted: (orange)
       'Embarrassed', 'Disgusted',
-      // Sad:
+      // Sad: (blue)
       'Lonely', 'Guilty', 'Hurt',
-      // Happy:
+      // Happy: (yellow)
       'Optimistic', 'Peaceful', 'Powerful', 'Accepted', 'Joyful',
-      // Surprised:
+      // Surprised: (green)
       'Startled', 'Confused', 'Excited', 'Amazed'
 
     ]
