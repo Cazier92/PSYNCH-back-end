@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 
 const notificationSchema = new Schema({
-  member: {type: Schema.Types.ObjectId, ref: 'Profile'},
+  members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   content: String,
   link: String,
 },{

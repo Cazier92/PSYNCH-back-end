@@ -106,6 +106,7 @@ const show = async (req, res) => {
     // .populate('author')
     .populate('friends')
     .populate('friendRequests')
+    .populate('notifications')
     res.status(200).json(profile)
   } catch (error) {
     res.status(500).json(error)

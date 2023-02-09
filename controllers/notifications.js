@@ -14,12 +14,12 @@ const index = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    req.body.members = [req.user.profile, req.body.profile]
-    const profile = await Profile.findById(req.body.profile)
-    req.body.content = `You have a new message from: ${profile.name}`
+    req.body.members = req.body.profile[0]
+    const profile = await Profile.findById(req.body.profile[0])
+    req.body.content = `You have a new message from: ${req.user.name}`
     const notification = await Notification.create(req.body)
     const otherMemberProfile = await Profile.findByIdAndUpdate(
-      req.body.profile,
+      req.body.profile[0],
       { $push: { notifications: notification } },
       { new: true }
     )
@@ -39,28 +39,6 @@ const deleteNotification = async (req, res) => {
     profile.notifications.remove({ _id: req.params.id });
       await profile.save();
       res.status(200).json(notification);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-}
-
-const deleteMessage = async (req, res) => {
-  try {
-    const conversation = await DirectMessage.findById(req.params.conversationId)
-    const messageDoc = conversation.messages.id(req.params.messageId)
-    if (
-      messageDoc.author.equals(req.user.profile)) {
-      conversation.messages.remove({ _id: req.params.messageId });
-      await conversation.save();
-      res.status(200).json(messageDoc);
-    } else {
-      res
-        .status(401)
-        .json(
-          "Not Authorized: User does not match messageDoc.author"
-        );
-    }
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
