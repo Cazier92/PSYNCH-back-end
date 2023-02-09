@@ -57,7 +57,7 @@ const sendMessage = async (req, res) => {
     conversation.messages.push(req.body)
     await conversation.save()
     const newMessage = conversation.messages[conversation.messages.length -1]
-
+    
     res.status(201).json(newMessage)
   } catch (error) {
     console.log(error);
