@@ -9,7 +9,8 @@ const profileSchema = new Schema({
   friendRequests: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   friends: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   messages: [{type: Schema.Types.ObjectId, ref: 'DirectMessage'}],
-  currentStatus: {type: String, default: 'Excited'}
+  currentStatus: {type: String, default: 'Excited'},
+  notifications: [{type: Schema.Types.ObjectId, ref: 'Notification'}]
 },{
   timestamps: true,
 })
