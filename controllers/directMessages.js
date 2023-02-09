@@ -65,12 +65,48 @@ const sendMessage = async (req, res) => {
 
 const deleteMessage = async (req, res) => {
   try {
-
+    const conversation = await DirectMessage.findById(req.params.conversationId)
+    const messageDoc = conversation.messages.id(req.params.messageId)
+    if (
+      messageDoc.author.equals(req.user.profile)) {
+      conversation.messages.remove({ _id: req.params.messageId });
+      await conversation.save();
+      res.status(200).json(messageDoc);
+    } else {
+      res
+        .status(401)
+        .json(
+          "Not Authorized: User does not match messageDoc.author"
+        );
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 }
+
+const deleteComment = async (req, res) => {
+  try {
+    const post = await EmotionPost.findById(req.params.emotionPostId);
+    const commentDoc = post.comments.id(req.params.commentId);
+    if (
+      commentDoc.author.equals(req.user.profile) ||
+      post.author.equals(req.user.profile)
+    ) {
+      post.comments.remove({ _id: req.params.commentId });
+      await post.save();
+      res.status(200).json(commentDoc);
+    } else {
+      res
+        .status(401)
+        .json(
+          "Not Authorized: User does not match emotionPost.author or commentDoc.author"
+        );
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 export {
   index,

@@ -17,7 +17,7 @@ router.get('/:id', checkAuth, directMessagesCtrl.show)
 router.post('/', checkAuth, directMessagesCtrl.create)
 router.post('/:id/sendMessage', checkAuth, directMessagesCtrl.sendMessage)
 
-router.delete(':conversationId/deleteMessage/:messageId', checkAuth, directMessagesCtrl.deleteMessage)
+router.delete('/:conversationId/deleteMessage/:messageId', checkAuth, directMessagesCtrl.deleteMessage)
 
 
 export { router }
