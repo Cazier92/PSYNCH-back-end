@@ -17,6 +17,7 @@ const show = async (req, res) => {
   try {
     const directMessage = await DirectMessage.findById(req.params.id)
     .populate('members')
+    .populate('messages')
     .populate('messages.author')
     res.status(200).json(directMessage)
   } catch (error) {
@@ -47,8 +48,34 @@ const create = async (req, res) => {
   }
 }
 
+const sendMessage = async (req, res) => {
+  try {
+    req.body.author = req.user.profile
+    const conversation = await DirectMessage.findById(req.params.id)
+    conversation.messages.push(req.body)
+    await conversation.save()
+    const newMessage = conversation.messages[conversation.messages.length -1]
+
+    res.status(201).json(newMessage)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+}
+
+const deleteMessage = async (req, res) => {
+  try {
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+}
+
 export {
   index,
   show, 
   create,
+  sendMessage,
+  deleteMessage,
 }
