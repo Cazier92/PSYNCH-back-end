@@ -15,7 +15,10 @@ const index = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-
+    const directMessage = await DirectMessage.findById(req.params.id)
+    .populate('members')
+    .populate('messages.author')
+    res.status(200).json(directMessage)
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
