@@ -7,12 +7,12 @@ const router = Router()
 /*---------- Public Routes ----------*/
 
 
+router.get('/', directMessagesCtrl.index)
+router.get('/:id', directMessagesCtrl.show)
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 
-router.get('/', checkAuth, directMessagesCtrl.index)
-router.get('/:id', checkAuth, directMessagesCtrl.show)
 
 router.post('/', checkAuth, directMessagesCtrl.create)
 router.post('/:id/sendMessage', checkAuth, directMessagesCtrl.sendMessage)

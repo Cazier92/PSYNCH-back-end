@@ -4,7 +4,7 @@ import { DirectMessage } from "../models/directMessage.js";
 const index = async (req, res) => {
   try {
     const directMessages = await DirectMessage.find({})
-    .populate('members')
+    // .populate('members')
     .sort({ createdAt: "desc" });
     res.status(200).json(directMessages)
   } catch (error) {
@@ -40,6 +40,8 @@ const create = async (req, res) => {
       { $push: { messages: directMessage } },
       { new: true }
     )
+    await userProfile.save()
+    await otherMemberProfile.save()
     directMessage.members = [req.user.profile, req.body.profile]
     res.status(201).json(directMessage)
   } catch (error) {
