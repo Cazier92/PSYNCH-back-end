@@ -82,7 +82,7 @@ const acceptRequest = async (req, res) => {
       {new: true})
     userProfile.friendRequests.remove({_id: req.params.id})
     await userProfile.save()
-    res.status(200).json(userProfile)
+    res.status(200).json(friendProfile)
   } catch (error) {
     res.status(500).json(error)
   }
