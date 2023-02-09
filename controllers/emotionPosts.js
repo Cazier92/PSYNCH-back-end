@@ -71,7 +71,6 @@ const create = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
-    console.log(typeof req.body.emotion);
   }
 };
 
@@ -105,7 +104,6 @@ const addReaction = async (req, res) => {
 
     const profile = await Profile.findById(req.user.profile)
     
-    // newReaction.author = profile
 
     res.status(201).json(emotionPost)
   } catch (error) {
