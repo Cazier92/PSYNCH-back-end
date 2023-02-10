@@ -53,6 +53,7 @@ const create = async (req, res) => {
 const sendMessage = async (req, res) => {
   try {
     req.body.author = req.user.profile
+    // .populate('author')
     const conversation = await DirectMessage.findById(req.params.id)
     conversation.messages.push(req.body)
     await conversation.save()
